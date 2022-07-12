@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Admin_123"
+        ACCEPT_EULA: "Y"
+    ports:
+    - 1435:1433
+    networks:
+        - default
+
+  dbtest:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Admin_123"
+        ACCEPT_EULA: "Y"
+    volumes:
+        - ./devops/mssql/mssql.conf:/var/opt/mssql/mssql.conf
+    ports:
+    - 1437:1433
+    networks:
+        - default
+
+# Чтобы подключить postgres, надо раскомментировать
+
+#  gpdm_db:
+#    image: postgres:latest
+#    restart: always
+#    environment:
+#    - POSTGRES_PASSWORD=postgre-sql
+#    ports:
+#    - 5434:5432
+#    networks:
+#        - default
+#
+#  gpdm_dbtest:
+#    image: postgres:latest
+#    restart: always
+#    environment:
+#    - POSTGRES_PASSWORD=postgre-sql
+#    ports:
+#    - 5436:5432
+#    networks:
+#        - default
+    
+
+# Чтобы подключить redis, надо раскомментировать
+
+#  redis:
+#    image: redis:latest
+#    command: redis-server --requirepass admin
+#    restart: always
+#    ports: 
+#    - 6385:6379
+#    networks:
+#        - default
+#    
+#  redistest:
+#    image: redis:latest
+#    command: [sh, -c, "rm -f /data/dump.rdb && redis-server --requirepass admin"]
+#    restart: always
+#    ports: 
+#    - 6387:6379
+#    networks:
+#        - default
+
+# Чтобы подключить rabbitmq, надо раскомментировать
+
+#  rabbitmq:
+#    # user/pass - guest/guest
+#    image: rabbitmq:3-management
+#    hostname: rabbitmq
+#    ports:
+#    - 4369:4369
+#    - 5671:5671
+#    - 5672:5672
+#    - 25672:25672
+#    - 15671:15671
+#    - 15672:15672
+#    networks:
+#        - default
+
+
+networks:
+  default:
+    name: dev-network

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SwaggerGen": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\projects\\etalon-backend\\tests\\IntegrationTests C:\\projects\\etalon-backend\\frontend"
+    }
+  }
+}
