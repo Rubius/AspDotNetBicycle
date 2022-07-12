@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SwaggerIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
-namespace Application.Requests.BicycleModels.Commands.UpdateBicycleModel;
+namespace Application.Requests.BicycleBrands.Commands.UpdateBicycleBrand;
 
-public class UpdateBicycleModelCommand : IRequest, IMapTo<BicycleModel>
+public class UpdateBicycleBrandCommand : IRequest, IMapTo<BicycleBrand>
 {
     [SwaggerIgnore]
     public ulong Id { get; set; }
@@ -22,33 +22,33 @@ public class UpdateBicycleModelCommand : IRequest, IMapTo<BicycleModel>
     public int LifeTimeYears { get; set; }
 
     [JsonProperty(Required = Required.Always)]
-    public BicycleModelClass Class { get; set; }
+    public BicycleBrandClass Class { get; set; }
 
     public void MappingTo(Profile profile)
     {
-        profile.CreateMap<UpdateBicycleModelCommand, BicycleModel>()
+        profile.CreateMap<UpdateBicycleBrandCommand, BicycleBrand>()
             .ForMember(x => x.Bicycles, y => y.Ignore())
             .ForMember(x => x.ManufacturerAddress, y => y.Ignore());
     }
 }
 
-public class UpdateBicycleModelsCommandHandler : IRequestHandler<UpdateBicycleModelCommand>
+public class UpdateBicycleBrandsCommandHandler : IRequestHandler<UpdateBicycleBrandCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public UpdateBicycleModelsCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public UpdateBicycleBrandsCommandHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    public async Task<Unit> Handle(UpdateBicycleModelCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateBicycleBrandCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.BicycleModels.Where(x => x.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
+        var entity = await _context.BicycleBrands.Where(x => x.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
         if (entity == null)
         {
-            throw new NotFoundException(nameof(BicycleModel), request.Id.ToString());
+            throw new NotFoundException(nameof(BicycleBrand), request.Id.ToString());
         }
         _mapper.Map(request, entity);
         await _context.SaveChangesAsync(cancellationToken);

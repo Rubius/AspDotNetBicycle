@@ -15,7 +15,7 @@ namespace Application.Requests.Rides.Commands.StartRide
     public class StartRideCommand : IRequest<long>
     {
         [JsonProperty(Required = Required.Always)]
-        public long BicycleModelId { get; set; }
+        public long BicycleBrandId { get; set; }
 
         [JsonProperty(Required = Required.Always)]
         public AddressDto AddressDto { get; set; } = new AddressDto();

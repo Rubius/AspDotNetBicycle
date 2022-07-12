@@ -25,12 +25,12 @@ public class Bicycle
     /// <summary>
     /// Идентификатор модели
     /// </summary>
-    public ulong ModelId { get; set; }
+    public ulong BrandId { get; set; }
 
     /// <summary>
     /// Модель велосипеда
     /// </summary>
-    public BicycleModel? Model { get; set; }
+    public BicycleBrand? Brand { get; set; }
 
     /// <summary>
     /// Пробег велосипеда (мили)
@@ -90,7 +90,7 @@ public class Bicycle
     {
         // день, когда велосипед надо списать
         var writeOffDateTime = new DateTime(
-            ManufactureDate.Year + (Model?.LifeTimeYears ?? 0),
+            ManufactureDate.Year + (Brand?.LifeTimeYears ?? 0),
             ManufactureDate.Month,
             ManufactureDate.Day);
 

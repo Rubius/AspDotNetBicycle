@@ -15,14 +15,14 @@ public class BicycleUnitTest
     public void OldBicycle_Should_BeWrittenOffSoon()
     {
         // arrange
-        var model = new BicycleModel("BM-1254", BicycleModelClass.A, new Address("Russia", "Moscow"))
+        var model = new BicycleBrand("BM-1254", BicycleBrandClass.A, new Address("Russia", "Moscow"))
         {
             LifeTimeYears = 10
         };
         var bicycle = new Bicycle(new Address("USA", "California", "LA"))
         {
             ManufactureDate = new DateTime(2012, 1, 2),
-            Model = model
+            Brand = model
         };
 
         // act

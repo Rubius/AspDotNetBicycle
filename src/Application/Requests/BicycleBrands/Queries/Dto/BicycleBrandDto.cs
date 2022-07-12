@@ -5,11 +5,11 @@ using Domain.Entities;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.Requests.BicycleModels.Queries.Dto;
+namespace Application.Requests.BicycleBrands.Queries.Dto;
 
-public class BicycleModelDto : IMapFrom<BicycleModel>
+public class BicycleBrandDto : IMapFrom<BicycleBrand>
 {
-    [JsonProperty(Required=Required.Always)]
+    [JsonProperty(Required = Required.Always)]
     public ulong Id { get; set; }
 
     [JsonProperty(Required = Required.Always)]

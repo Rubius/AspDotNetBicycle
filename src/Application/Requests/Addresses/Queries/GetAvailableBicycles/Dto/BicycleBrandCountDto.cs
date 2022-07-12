@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Requests.Addresses.Queries.GetAvailableBicycles.Dto
 {
-    public class BicycleModelCountDto
+    public class BicycleBrandCountDto
     {
         [JsonProperty(Required = Required.Always)]
         public ulong Id { get; set; }

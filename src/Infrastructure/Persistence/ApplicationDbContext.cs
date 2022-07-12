@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         : base(options)
     {}
     
-    public DbSet<BicycleModel> BicycleModels { get; set; }
+    public DbSet<BicycleBrand> BicycleBrands { get; set; }
     public DbSet<Bicycle> Bicycles { get; set; }
     public DbSet<Ride> Rides { get; set; }
     public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }

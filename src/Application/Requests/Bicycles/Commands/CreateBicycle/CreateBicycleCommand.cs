@@ -10,7 +10,7 @@ namespace Application.Requests.Bicycles.Commands.CreateBicycle;
 public class CreateBicycleCommand : IRequest<ulong>, IMapTo<Bicycle>
 {
     [JsonProperty(Required = Required.Always)]
-    public ulong ModelId { get; set; }
+    public ulong BrandId { get; set; }
 
     [JsonProperty(Required = Required.Always)]
     public DateTime ManufactureDate { get; set; }
@@ -29,7 +29,7 @@ public class CreateBicycleCommand : IRequest<ulong>, IMapTo<Bicycle>
             .ForMember(x => x.NeedTechnicalInspection, y => y.Ignore())
             .ForMember(x => x.Rides, y => y.Ignore())
             .ForMember(x => x.TechnicalStatus, y => y.Ignore())
-            .ForMember(x => x.Model, y => y.Ignore());
+            .ForMember(x => x.Brand, y => y.Ignore());
     }
 }
 

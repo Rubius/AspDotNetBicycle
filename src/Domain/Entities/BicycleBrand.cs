@@ -5,7 +5,7 @@ using Localization.Resources;
 
 namespace Domain.Entities;
 
-public class BicycleModel
+public class BicycleBrand
 {
     /// <summary>
     /// Идентификатор
@@ -23,7 +23,7 @@ public class BicycleModel
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new MappingValidationException(Resources.ArgumentNullOrEmptyError, nameof(Name), nameof(BicycleModel));
+                throw new MappingValidationException(Resources.ArgumentNullOrEmptyError, nameof(Name), nameof(BicycleBrand));
             }
             _name = value;
         }
@@ -48,35 +48,35 @@ public class BicycleModel
         protected init
         {
             if (value is null)
-                throw new MappingValidationException(Resources.ArgumentNullOrEmptyError, nameof(ManufacturerAddress), nameof(BicycleModel));
+                throw new MappingValidationException(Resources.ArgumentNullOrEmptyError, nameof(ManufacturerAddress), nameof(BicycleBrand));
             _manufacturerAddress = value;
         }
     }
 
-    public BicycleModelClass Class { get; private set; } 
+    public BicycleBrandClass Class { get; private set; } 
 
 #pragma warning disable CS8618
-    public BicycleModel(string name, BicycleModelClass modelClass, Address manufacturerAddress)
+    public BicycleBrand(string name, BicycleBrandClass brandClass, Address manufacturerAddress)
     {
         Name = name;
-        Class = modelClass;
+        Class = brandClass;
         ManufacturerAddress = manufacturerAddress;
     }
 
-    protected BicycleModel() { }
+    protected BicycleBrand() { }
 #pragma warning restore CS8618
 
     /// <summary>
     /// Велосипеды, которые нужно списать до определенной даты
     /// </summary>
-    /// <param name="thisModelBicycles">Велосипеды</param>
+    /// <param name="thisBrandBicycles">Велосипеды</param>
     /// <param name="writeOffDate">Время, до которого велосипед должен быть списан</param>
     /// <returns>Список велосипедов данной модели, которые нужно списать до определенной даты</returns>
-    public IQueryable<Bicycle> GetBicyclesWillBeWrittenOff(IQueryable<Bicycle> thisModelBicycles, DateTime writeOffDate)
+    public IQueryable<Bicycle> GetBicyclesWillBeWrittenOff(IQueryable<Bicycle> thisBrandBicycles, DateTime writeOffDate)
     {
         // получаем IQueriable для несписанных велосипедов
-        var nonWrittenOffBicycles = thisModelBicycles
-            .Where(x => x.ModelId == Id)
+        var nonWrittenOffBicycles = thisBrandBicycles
+            .Where(x => x.BrandId == Id)
             .Where(x => x.IsWrittenOff == false);
 
         // списаны будут те велосипеды, дата списания которых раньше указанной даты списания
@@ -88,10 +88,10 @@ public class BicycleModel
     /// <summary>
     /// Велосипеды, которые нужно списать до конца года
     /// </summary>
-    /// <param name="thisModelBicycles">Велосипеды</param>
+    /// <param name="thisBrandBicycles">Велосипеды</param>
     /// <returns>Список велосипедов данной модели, которые нужно списать до конца года</returns>
-    public IQueryable<Bicycle> GetBicyclesWillBeWrittenOffThisYear(IQueryable<Bicycle> thisModelBicycles)
+    public IQueryable<Bicycle> GetBicyclesWillBeWrittenOffThisYear(IQueryable<Bicycle> thisBrandBicycles)
     {
-        return GetBicyclesWillBeWrittenOff(thisModelBicycles, new DateTime(DateTime.Now.Year + 1, 1, 1));
+        return GetBicyclesWillBeWrittenOff(thisBrandBicycles, new DateTime(DateTime.Now.Year + 1, 1, 1));
     }
 }

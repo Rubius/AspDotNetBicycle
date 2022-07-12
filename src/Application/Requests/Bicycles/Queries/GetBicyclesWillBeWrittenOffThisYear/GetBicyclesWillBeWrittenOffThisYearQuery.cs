@@ -12,7 +12,7 @@ namespace Application.Requests.Bicycles.Queries.GetBicyclesWillBeWrittenOffThisY
 public class GetBicyclesWillBeWrittenOffThisYearQuery : IRequest<IEnumerable<ShortBicycleDto>>
 {
     [JsonProperty(Required = Required.Always)]
-    public ulong ModelId { get; set; }
+    public ulong BrandId { get; set; }
 
     [JsonProperty(Required = Required.AllowNull)]
     public string? RentalPointCity { get; set; }
@@ -31,15 +31,15 @@ public class GetBicyclesWillBeWrittenOffThisYearHandler : IRequestHandler<GetBic
 
     public async Task<IEnumerable<ShortBicycleDto>> Handle(GetBicyclesWillBeWrittenOffThisYearQuery request, CancellationToken cancellationToken)
     {
-        var model = await _context.BicycleModels.Where(x => x.Id == request.ModelId).FirstOrDefaultAsync(cancellationToken);
+        var brand = await _context.BicycleBrands.Where(x => x.Id == request.BrandId).FirstOrDefaultAsync(cancellationToken);
 
-        if (model is null)
+        if (brand is null)
         {
-            throw new BadRequestException(Resources.EntityNotExists, new { ModelsId = request.ModelId });
+            throw new BadRequestException(Resources.EntityNotExists, new { ModelsId = request.BrandId });
         }
 
         var bicyclesInRequestedCityQuery = Bicycle.FilterByCity(_context.Bicycles, request.RentalPointCity);
-        var bicyclesBeWrittenOffThisYear = await model.GetBicyclesWillBeWrittenOffThisYear(bicyclesInRequestedCityQuery)
+        var bicyclesBeWrittenOffThisYear = await brand.GetBicyclesWillBeWrittenOffThisYear(bicyclesInRequestedCityQuery)
             .ToListAsync(cancellationToken);
 
         return bicyclesBeWrittenOffThisYear.Select(x => _mapper.Map<ShortBicycleDto>(x));

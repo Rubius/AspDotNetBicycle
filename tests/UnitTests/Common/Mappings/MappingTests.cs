@@ -1,5 +1,5 @@
 using Application.Common.Mapping;
-using Application.Requests.BicycleModels.Queries.Dto;
+using Application.Requests.BicycleBrands.Queries.Dto;
 using Application.Requests.Bicycles.Queries.Dto;
 using AutoFixture;
 using AutoFixture.Kernel;
@@ -27,7 +27,7 @@ public class MappingTests
         _mapper = _configuration.CreateMapper();
 
         _fixture = new Fixture();
-        _fixture.Customize<BicycleModel>(x => x.Without(y => y.Bicycles));
+        _fixture.Customize<BicycleBrand>(x => x.Without(y => y.Bicycles));
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class MappingTests
     }
 
     [Theory]
-    [InlineData(typeof(BicycleModel), typeof(BicycleModelDto))]
+    [InlineData(typeof(BicycleBrand), typeof(BicycleBrandDto))]
     [InlineData(typeof(Bicycle), typeof(FullBicycleDto))]
     [InlineData(typeof(Bicycle), typeof(ShortBicycleDto))]
     public void ShouldSupportMappingFromSourceToDestination3(Type source, Type destination)

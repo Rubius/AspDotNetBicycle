@@ -27,7 +27,7 @@ namespace Application.Requests.Rides.Queries
         {
             var result = await _context.Rides
                 .Include(x => x.Bicycle)
-                    .ThenInclude(x => x!.Model)
+                    .ThenInclude(x => x!.Brand)
                 .Where(x => x.UserId == _currentUserService.User!.Id)
                 .Select(x => _mapper.Map<UserRideDto>(x))
                 .ToListAsync(cancellationToken);

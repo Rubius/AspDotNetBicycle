@@ -8,9 +8,9 @@ public class BicycleConfiguration : IEntityTypeConfiguration<Bicycle>
 {
     public void Configure(EntityTypeBuilder<Bicycle> builder)
     {
-        builder.HasOne(x => x.Model)
+        builder.HasOne(x => x.Brand)
             .WithMany(x => x.Bicycles)
-            .HasForeignKey(x => x.ModelId)
+            .HasForeignKey(x => x.BrandId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.OwnsOne(x => x.RentalPointAddress, navigationBuilder =>

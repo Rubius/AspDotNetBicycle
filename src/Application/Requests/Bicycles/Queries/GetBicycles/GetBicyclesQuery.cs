@@ -14,7 +14,7 @@ namespace Application.Requests.Bicycles.Queries.GetBicycles;
 public class GetBicyclesQuery : IRequest<IList<ShortBicycleDto>>
 {
     [JsonProperty(Required = Required.Default)]
-    public ulong? BicycleModelId { get; set; }
+    public ulong? BicycleBrandId { get; set; }
 
     [JsonProperty(Required = Required.Default)]
     public AddressDto? AddressDto { get; set; }
@@ -43,9 +43,9 @@ public class GetAllBicyclesQueryHandler : IRequestHandler<GetBicyclesQuery, ILis
 
         var query = _context.Bicycles.AsQueryable();
 
-        if (request.BicycleModelId is not null)
+        if (request.BicycleBrandId is not null)
         {
-            query = query.Where(x => x.ModelId == request.BicycleModelId);
+            query = query.Where(x => x.BrandId == request.BicycleBrandId);
         }
         if (request.TechnicalStatus is not null)
         {

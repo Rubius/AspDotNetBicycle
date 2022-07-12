@@ -9,13 +9,13 @@ using Newtonsoft.Json;
 
 namespace Application.Requests.Addresses.Queries.GetAvailableBicycles
 {
-    public class GetAvailableBicyclesQuery : IRequest<IEnumerable<BicycleModelCountDto>>
+    public class GetAvailableBicyclesQuery : IRequest<IEnumerable<BicycleBrandCountDto>>
     {
         [JsonProperty(Required = Required.Always)]
         public AddressDto AddressDto { get; set; } = new AddressDto();
     }
 
-    public class GetAvailableBicyclesQueryHandler : IRequestHandler<GetAvailableBicyclesQuery, IEnumerable<BicycleModelCountDto>>
+    public class GetAvailableBicyclesQueryHandler : IRequestHandler<GetAvailableBicyclesQuery, IEnumerable<BicycleBrandCountDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -26,17 +26,17 @@ namespace Application.Requests.Addresses.Queries.GetAvailableBicycles
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BicycleModelCountDto>> Handle(GetAvailableBicyclesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BicycleBrandCountDto>> Handle(GetAvailableBicyclesQuery request, CancellationToken cancellationToken)
         {
             var address = _mapper.Map<Address>(request.AddressDto);
 
             var bicyclesModelsCounts = await _context.Bicycles.AsQueryable()
                 .OnlyAvailableForRent(_context.Rides.AsQueryable())
                 .ByAddress(address)
-                .GroupBy(x => new { x.ModelId, x.Model!.Name })
-                .Select(x => new BicycleModelCountDto 
+                .GroupBy(x => new { x.BrandId, x.Brand!.Name })
+                .Select(x => new BicycleBrandCountDto 
                 {
-                    Id = x.Key.ModelId,
+                    Id = x.Key.BrandId,
                     Name = x.Key.Name,
                     Count = x.Count()
                 }).ToListAsync(cancellationToken);

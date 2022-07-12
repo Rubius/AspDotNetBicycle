@@ -1,6 +1,6 @@
 ﻿using Application.Common.Dto;
 using Application.Common.Mapping;
-using Application.Requests.BicycleModels.Queries.Dto;
+using Application.Requests.BicycleBrands.Queries.Dto;
 using Domain.Entities;
 using Newtonsoft.Json;
 
@@ -21,5 +21,5 @@ public class FullBicycleDto : IMapFrom<Bicycle>
     public AddressDto RentalPointAddress { get; set; } = new ();
 
     [JsonProperty(Required = Required.Always)]
-    public BicycleModelDto Model { get; set; } = new();
+    public BicycleBrandDto Brand { get; set; } = new();
 }

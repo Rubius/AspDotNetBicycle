@@ -18,7 +18,7 @@ public class BicycleModelUnitTest
 
         var address = new Address("USA", "LA");
 
-        var model = new BicycleModel("Model-4", BicycleModelClass.A, address)
+        var model = new BicycleBrand("Model-4", BicycleBrandClass.A, address)
         {
             LifeTimeYears = 10
         };

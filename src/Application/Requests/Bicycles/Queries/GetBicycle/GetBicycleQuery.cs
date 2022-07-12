@@ -33,7 +33,7 @@ public class GetBicycleCommandHandler : IRequestHandler<GetBicycleQuery, FullBic
     public async Task<FullBicycleDto> Handle(GetBicycleQuery request, CancellationToken cancellationToken)
     {
         var entity = await _context.Bicycles
-            .Include(x => x.Model)
+            .Include(x => x.Brand)
             .Where(x => x.Id == request.Id)
             .Select(x => _mapper.Map<Bicycle, FullBicycleDto>(x))
             .FirstOrDefaultAsync(cancellationToken);

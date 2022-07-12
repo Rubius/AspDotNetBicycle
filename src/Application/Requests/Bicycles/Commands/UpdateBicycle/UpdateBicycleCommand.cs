@@ -16,7 +16,7 @@ public class UpdateBicycleCommand : IRequest, IMapTo<Bicycle>
     public ulong Id { get; set; }
 
     [JsonProperty(Required = Required.Always)]
-    public ulong ModelId { get; set; }
+    public ulong BrandId { get; set; }
 
     [JsonProperty(Required = Required.Always)]
     public DateTime ManufactureDate { get; set; }
@@ -30,7 +30,7 @@ public class UpdateBicycleCommand : IRequest, IMapTo<Bicycle>
     public void MappingTo(Profile profile)
     {
         profile.CreateMap<UpdateBicycleCommand, Bicycle>()
-            .ForMember(x => x.Model, y => y.Ignore())
+            .ForMember(x => x.Brand, y => y.Ignore())
             .ForMember(x => x.Mileage, y => y.Ignore())
             .ForMember(x => x.NeedTechnicalInspection, y => y.Ignore())
             .ForMember(x => x.Rides, y => y.Ignore())
@@ -38,12 +38,12 @@ public class UpdateBicycleCommand : IRequest, IMapTo<Bicycle>
     }
 }
 
-public class UpdateBicycleModelsCommandHandler : IRequestHandler<UpdateBicycleCommand>
+public class UpdateBicycleBrandsCommandHandler : IRequestHandler<UpdateBicycleCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public UpdateBicycleModelsCommandHandler(IApplicationDbContext context, IMapper mapper)
+    public UpdateBicycleBrandsCommandHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

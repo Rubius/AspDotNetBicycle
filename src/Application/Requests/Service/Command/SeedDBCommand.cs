@@ -20,11 +20,11 @@ public class SeedDbCommandHandler : IRequestHandler<SeedDbCommand>
 
     public async Task<Unit> Handle(SeedDbCommand request, CancellationToken cancellationToken)
     {
-        var russianBicycleModel = new BicycleModel("AB-1569", BicycleModelClass.A, new Address("Russia", "Tomsk", "Tomsk", "Kievskaya"))
+        var russianBicycleBrand = new BicycleBrand("AB-1569", BicycleBrandClass.A, new Address("Russia", "Tomsk", "Tomsk", "Kievskaya"))
         {
             LifeTimeYears = 5
         };
-        var germanBicycleModel = new BicycleModel("Langustin", BicycleModelClass.C, new Address("Germany", "Bavaria"))
+        var germanBicycleBrand = new BicycleBrand("Langustin", BicycleBrandClass.C, new Address("Germany", "Bavaria"))
         {
             LifeTimeYears = 10
         };
@@ -35,25 +35,25 @@ public class SeedDbCommandHandler : IRequestHandler<SeedDbCommand>
             {
                 IsWrittenOff = false,
                 ManufactureDate = new DateTime(2020, 10, 22),
-                Model = russianBicycleModel
+                Brand = russianBicycleBrand
             },
             new(createRentalAddress())
             {
                 IsWrittenOff = false,
                 ManufactureDate = new DateTime(2018, 10, 22),
-                Model = germanBicycleModel
+                Brand = germanBicycleBrand
             },
             new(createRentalAddress())
             {
                 IsWrittenOff = true,
                 ManufactureDate = new DateTime(2016, 10, 22),
-                Model = russianBicycleModel
+                Brand = russianBicycleBrand
             },
             new(createRentalAddress())
             {
                 IsWrittenOff = false,
                 ManufactureDate = new DateTime(2019, 10, 22),
-                Model = germanBicycleModel
+                Brand = germanBicycleBrand
             },
         };
 

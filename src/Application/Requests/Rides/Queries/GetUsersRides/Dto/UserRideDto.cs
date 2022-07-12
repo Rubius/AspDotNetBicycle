@@ -11,7 +11,7 @@ namespace Application.Requests.Rides.Queries.GetUsersRides.Dto
     {
         [JsonProperty(Required = Required.Always)]
         [MaxLength(StringConstants.ShortTextLength)]
-        public string BicycleModelName { get; set; } = string.Empty;
+        public string BicycleBrandName { get; set; } = string.Empty;
 
         [JsonProperty(Required = Required.Always)]
         public DateTime StartDateTime { get; set; }
@@ -27,8 +27,8 @@ namespace Application.Requests.Rides.Queries.GetUsersRides.Dto
 
         public void MappingFrom(Profile profile)
         {
-            profile.CreateMap<Ride, UserRideDto>().ForMember(x => x.BicycleModelName, 
-                opts => opts.MapFrom(y => y.Bicycle != null && y.Bicycle.Model != null ? y.Bicycle.Model.Name : string.Empty));
+            profile.CreateMap<Ride, UserRideDto>().ForMember(x => x.BicycleBrandName, 
+                opts => opts.MapFrom(y => y.Bicycle != null && y.Bicycle.Brand != null ? y.Bicycle.Brand.Name : string.Empty));
         }
     }
 }

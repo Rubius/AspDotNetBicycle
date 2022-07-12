@@ -36,10 +36,10 @@ namespace WebApp.Controllers
         /// </summary>
         /// <param name="query">Данные для поиска велосипедов</param>
         /// <returns>Список моделей велосипедов с количеством доступных для проката</returns>
-        [HttpPost("rental-points-addresses/bicycle-models")]
+        [HttpPost("rental-points-addresses/bicycle-brands")]
         [Auth(Permission.AddressRead)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<BicycleModelCountDto>> GetRentalPointsAvailableBicycleModels(GetAvailableBicyclesQuery query)
+        public async Task<IEnumerable<BicycleBrandCountDto>> GetRentalPointsAvailableBicycleBrands(GetAvailableBicyclesQuery query)
         {
             return await Mediator.Send(query);
         }

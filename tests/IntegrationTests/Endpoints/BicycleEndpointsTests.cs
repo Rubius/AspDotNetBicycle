@@ -1,5 +1,5 @@
 using Application.Common.Dto;
-using Application.Requests.BicycleModels.Commands.CreateBicycleModel;
+using Application.Requests.BicycleBrands.Commands.CreateBicycleBrand;
 using Application.Requests.Bicycles.Commands.CreateBicycle;
 using Application.Requests.Bicycles.Commands.UpdateBicycle;
 using Application.Requests.Bicycles.Queries.GetBicycles;
@@ -51,7 +51,7 @@ public class BicycleEndpointsTests : EndpointTest
     public async Task Create_Should_ThrowApiException()
     {
         // arrange
-        var modelId = await ApiClients.BicycleModels.CreateAsync(CreateBicycleModelCommand);
+        var modelId = await ApiClients.BicycleBrands.CreateAsync(CreateBicycleModelCommand);
         var incorrectCreateBicycleCommand = BuildCreateBicycleCommand((ulong)modelId, IncorrectAddressDto);
 
         // act
@@ -72,7 +72,7 @@ public class BicycleEndpointsTests : EndpointTest
         var newManufactureDate = bicycle.ManufactureDate.AddDays(10);
         var updateBicycleCommand = new UpdateBicycleCommand
         {
-            ModelId = bicycle.Model.Id,
+            BrandId = bicycle.Brand.Id,
             IsWrittenOff = bicycle.IsWrittenOff,
             ManufactureDate = newManufactureDate,
             RentalPointAddress = new AddressDto
@@ -129,12 +129,12 @@ public class BicycleEndpointsTests : EndpointTest
     public async Task GetBicyclesWillBeWrittenOffThisYear_Should_BeEmpty()
     {
         //arrange
-        var modelId = await ApiClients.BicycleModels.CreateAsync(CreateBicycleModelCommand);
+        var modelId = await ApiClients.BicycleBrands.CreateAsync(CreateBicycleModelCommand);
         await ApiClients.Bicycles.CreateAsync(BuildCreateBicycleCommand((ulong)modelId, CorrectAddressDto));
         var query = new GetBicyclesWillBeWrittenOffThisYearQuery
         {
             RentalPointCity = CorrectAddressDto.City ?? string.Empty,
-            ModelId = (ulong)modelId
+            BrandId = (ulong)modelId
         };
 
         // act
@@ -146,13 +146,13 @@ public class BicycleEndpointsTests : EndpointTest
 
     private async Task<ulong> CreateBicycleAsync()
     {
-        var modelId = await ApiClients.BicycleModels.CreateAsync(CreateBicycleModelCommand);
+        var modelId = await ApiClients.BicycleBrands.CreateAsync(CreateBicycleModelCommand);
 
         var bicycleId = await ApiClients.Bicycles.CreateAsync(BuildCreateBicycleCommand((ulong)modelId, CorrectAddressDto));
         return (ulong)bicycleId;
     }
 
-    private static CreateBicycleModelCommand CreateBicycleModelCommand => new()
+    private static CreateBicycleBrandCommand CreateBicycleModelCommand => new()
     {
         Name = "bicycleModel",
         ManufacturerAddress = CorrectAddressDto,
@@ -161,7 +161,7 @@ public class BicycleEndpointsTests : EndpointTest
 
     private static CreateBicycleCommand BuildCreateBicycleCommand(ulong modelId, AddressDto address) => new()
     {
-        ModelId = modelId,
+        BrandId = modelId,
         IsWrittenOff = true,
         ManufactureDate = DateTime.Now.AddYears(-1).AddMonths(-1),
         RentalPointAddress = address

@@ -24,7 +24,7 @@ public class GetBicyclesTimeToBeWrittenOffHandler : IRequestHandler<GetBicyclesT
     {
         var bicyclesByCityQuery = Bicycle.FilterByCity(_context.Bicycles, request.RentalPointCity);
         var bicyclesTimeToBeWritten = await bicyclesByCityQuery
-            .Include(x => x.Model)
+            .Include(x => x.Brand)
             .Select(x => new BicycleTimeToBeWrittenOffDto
             {
                 Id = x.Id,

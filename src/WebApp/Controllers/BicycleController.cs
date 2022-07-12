@@ -30,7 +30,7 @@ public class BicycleController : ApiController
     [HttpPost("all-by-filters")]
     [Auth(Permission.BicycleRead)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IEnumerable<ShortBicycleDto>> GetBicycles(GetBicyclesQuery query) => 
+    public async Task<IEnumerable<ShortBicycleDto>> GetBicycles(GetBicyclesQuery query) =>
         await Mediator.Send(query);
 
     /// <summary>

@@ -9,12 +9,12 @@ namespace Domain.Rides
         private const double PricePerHour = 7;
         private const double ExtraMileFine = 8;
 
-        private readonly IDictionary<BicycleModelClass, double> CoefficientsByBicycleClass = new Dictionary<BicycleModelClass, double>()
+        private readonly IDictionary<BicycleBrandClass, double> CoefficientsByBicycleClass = new Dictionary<BicycleBrandClass, double>()
         {
-           { BicycleModelClass.A, 1 },
-           { BicycleModelClass.B, 1.01 },
-           { BicycleModelClass.C, 1.05 },
-           { BicycleModelClass.D, 1.1 }
+           { BicycleBrandClass.A, 1 },
+           { BicycleBrandClass.B, 1.01 },
+           { BicycleBrandClass.C, 1.05 },
+           { BicycleBrandClass.D, 1.1 }
         };
 
         private const long UsersDistancesSumForDiscount = 200_000;
@@ -26,7 +26,7 @@ namespace Domain.Rides
 
             sum += AddForTime(ride);
             sum += AddForDistance(ride);
-            sum *= AddForBicycleModelClass(ride);
+            sum *= AddForBicycleBrandClass(ride);
             sum *= DecreaseForUsersDistancesSum(usersDistancesSum);
 
             return sum;
@@ -52,16 +52,16 @@ namespace Domain.Rides
             return 0;
         }
 
-        private double AddForBicycleModelClass(Ride ride)
+        private double AddForBicycleBrandClass(Ride ride)
         {
-            var model = ride.Bicycle?.Model;
-            if (model is null)
+            var brand = ride.Bicycle?.Brand;
+            if (brand is null)
             {
                 throw new Exception("Can`t calculate ride sum");
             }
 
-            return CoefficientsByBicycleClass.ContainsKey(model.Class) 
-                ? CoefficientsByBicycleClass[model.Class] 
+            return CoefficientsByBicycleClass.ContainsKey(brand.Class) 
+                ? CoefficientsByBicycleClass[brand.Class] 
                 : 1;
          }
 

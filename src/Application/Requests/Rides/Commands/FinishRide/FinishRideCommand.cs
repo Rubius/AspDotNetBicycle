@@ -34,7 +34,7 @@ namespace Application.Requests.Rides.Commands.FinishRide
         {
             var ride = await _context.Rides
                 .Include(x => x.Bicycle)
-                    .ThenInclude(x => x!.Model)
+                    .ThenInclude(x => x!.Brand)
                 .Where(x => x.Id == request.RideId)
                 .FirstOrDefaultAsync(cancellationToken);
 

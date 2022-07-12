@@ -17,7 +17,7 @@ public class ShortBicycleDto : IMapFrom<Bicycle>
     public bool IsWrittenOff { get; set; }
 
     [JsonProperty(Required = Required.Always)]
-    public ulong ModelId { get; set; }
+    public ulong BrandId { get; set; }
 
     [JsonProperty(Required = Required.Always)]
     public long Mileage { get; set; }

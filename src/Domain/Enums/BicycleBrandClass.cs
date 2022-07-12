@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    public enum BicycleModelClass
+    public enum BicycleBrandClass
     {
         A = 0,
         B = 1,

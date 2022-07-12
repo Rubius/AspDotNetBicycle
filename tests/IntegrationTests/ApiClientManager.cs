@@ -13,7 +13,7 @@ namespace IntegrationTests;
 public class ApiClientManager
 {
     public BicycleApiClient Bicycles { get; }
-    public BicycleModelsApiClient BicycleModels { get; }
+    public BicycleBrandsApiClient BicycleBrands { get; }
     public UsersApiClient Users { get; }
 
     public User TestUser { get; }
@@ -34,7 +34,7 @@ public class ApiClientManager
         }
 
         Bicycles = new BicycleApiClient(httpClient) { BaseUrl = baseUrl };
-        BicycleModels = new BicycleModelsApiClient(httpClient) { BaseUrl = baseUrl };
+        BicycleBrands = new BicycleBrandsApiClient(httpClient) { BaseUrl = baseUrl };
         Users = new UsersApiClient(httpClient) { BaseUrl = baseUrl };
     }
 
